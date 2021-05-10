@@ -15,18 +15,21 @@ def home(request):
         variable_type = request.POST['variable_type']
         variable_value = request.POST['variable_value']
         print(variable_name,variable_type,variable_value)
-        v = Variable(name=variable_name,type=variable_type,value=variable_value)
-        v.save()
-        print('Data Save Successfully!')
-        if variable_value.lower().__contains__('true') or variable_value.lower().__contains__('false'):
-            if bool(variable_value):
-                b = BooleanValue(Value=variable_value,variable=v)
-                print('Boolean Save Successfully')
-        else:
-            s = StringValue(Value=variable_value,variable=v)
-            print('string Save Successfully')
+        try:
+            v = Variable(name=variable_name,type=variable_type,value=variable_value)
+            v.save()
+            if variable_value.lower().__contains__('true') or variable_value.lower().__contains__('false'):
+                if bool(variable_value):
+                    b = BooleanValue(Value=variable_value,variable=v)
+                    print('Boolean Save Successfully')
+            else:
+                s = StringValue(Value=variable_value,variable=v)
+                print('string Save Successfully')
+            pass
+            return render(request,'app/index.html',{'title':'Home Page','Message':'Data Save Successfully'})
+        except Exception as E:
+            return render(request,'app/index.html',{'title':'Home Page','Message':E})
         pass
-        return render(request,'app/index.html',{'title':'Home Page','Message':'Data Save Successfully'})
     else:
         return render(request,'app/index.html',{'title':'Home Page'})
     pass
