@@ -12,3 +12,5 @@ i make 3 classed as you define
 •	Field of “StringValue” is:
 ◦	“Value” containing the actual string value
 it's storing all data into the local Database called SQLlite3
+
+For Docker Implementation you can find the Two files with name Dockerfile and docker-compose.yml.
